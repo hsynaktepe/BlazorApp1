@@ -1,0 +1,13 @@
+﻿@inherits BaseButtonComponent
+
+<ButtonComponent 
+        Caption="@(Caption ?? "Edit")" 
+                 Color="@(Color ?? "secondary")" 
+                 IsBusy="@IsBusy"
+                 IsBusyCaption="yükleniyor" 
+                 IsOutLine="@IsOutLine" 
+                 Icon="@(Icon ?? "unlock")" 
+                 IsSmall="@IsSmall" 
+                 OnClick="OnClick" 
+                 ToolTipStr="@(ToolTipStr ?? "Edit")"/>
+
