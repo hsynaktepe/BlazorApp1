@@ -1,43 +1,59 @@
 ﻿@page "/test"
 @page "/test2"
 
-@using BlazorApp1.Client.CustomComponents.Buttons
 
-@*@inject IModalService Modal*@
+<h3>@title</h3>
 
-<h3>test page</h3>
-div.from-grop
+<div class="from-group">
 
-<div class="container">
-    <div class="btn-toolbar">
-        <button class="btn btn-outline-warning">
-            <span class="fas fa-home"></span>
-            Warning
-        </button>
-        <button class="btn btn-outline-success">
-            <span class="oi oi-check"></span>Success
-        </button>
+    <div class="container">
+        <div class="btn-toolbar">
+            <button class="btn btn-outline-warning">
+                <span class="fas fa-home"></span>
+                Warning
+            </button>
+            <button class="btn btn-outline-success">
+                <span class="oi oi-check"></span>Success
+            </button>
 
 
-        <CustomEditButtonComponent Caption="Test Edit Button" Color="info" Icon="edit" />
-        <CustomEditButtonComponent Caption="Test Edit Button" Color="danger" IsOutLine="true" IsBusy="true" />
+            <CustomEditButtonComponent Caption="ShowMessage" OnClick="@changeTitle" />
+            <CustomEditButtonComponent Caption="Test Edit Button" Color="danger" IsOutLine="true" IsBusy="false" OnClick="@showConfirmation" />
 
-        <ButtonComponent Caption="deneme" Color="success" IsBusy="true" />
+            <ButtonComponent Caption="deneme" Color="success" IsBusy="true" />
 
-        <button @onclick="changeTitle">Show Modal</button>
+            @*<button @onclick="changeTitle">Show Modal</button>*@
 
+        </div>
     </div>
 </div>
 
 @code {
     //private PageTitle = "";
-    [CascadingParameter] IModalService Modal { get; set; } = default!;
 
-    private void changeTitle()
+    [CascadingParameter]
+    IModalService Modal { get; set; }
+
+    [Inject]
+    ModalManager ModalManager { get; set; }
+
+    private String title = "";
+
+    private async Task changeTitle()
     {
-        ModalParameters mParams = new ModalParameters();
-        mParams.Add("Message", "Bu bir test popup denemesidir.");
+        await ModalManager.ShowMessageAsync("Show Message Title", "Kayıt Silindi", 3000);
 
-        Modal.Show<ShowMessagePopupComponent>("Popup",mParams);
+        //ModalParameters mParams = new ModalParameters();
+        //mParams.Add("Message", "Bu bir test popup denemesidir.");
+
+        //Modal.Show<ShowMessagePopupComponent>("Popup",mParams);
     }
+
+    async Task showConfirmation()
+    {
+        var res = await ModalManager.ConfirmationAsync("Confirmations", "Are you sure that it will be deleted?");
+
+        if (res) title = "Yes clicked"; else title = "no clicked";
+    }
+
 }
