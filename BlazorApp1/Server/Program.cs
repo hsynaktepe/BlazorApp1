@@ -3,14 +3,19 @@ using BlazorApp1.Server.Data.Context;
 using BlazorApp1.Server.Services.Infrastructure;
 using BlazorApp1.Server.Services.Services;
 using Blazored.Modal;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+IConfiguration configuration = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json")
+                            .Build();
 
 
 builder.Services.AddControllersWithViews();
@@ -37,6 +42,24 @@ builder.Services.AddDbContext<DataContext>(config =>
 
     config.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Database = MealApp; Integrated Security = True;");
     config.EnableSensitiveDataLogging();
+});
+
+builder.Services.AddAuthentication(opts =>
+{
+    opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(opts =>
+{
+    opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = configuration["JwtIssuer"],
+        ValidAudience = configuration["JwtAudience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSecurityKey"]))
+    };
 });
 
 var app = builder.Build();

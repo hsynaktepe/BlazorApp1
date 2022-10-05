@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.9">
@@ -25,10 +26,6 @@
     <ProjectReference Include="..\..\BlazorApp1.Server.Data\BlazorApp1.Server.Data.csproj" />
     <ProjectReference Include="..\Client\BlazorApp1.Client.csproj" />
     <ProjectReference Include="..\Shared\BlazorApp1.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\Infrastructure\" />
   </ItemGroup>
 
 

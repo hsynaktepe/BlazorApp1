@@ -1,6 +1,7 @@
 ﻿using BlazorApp1.Server.Services.Infrastructure;
 using BlazorApp1.Shared.DTO;
 using BlazorApp1.Shared.ResponseModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorApp1.Server.Controllers
@@ -16,13 +17,62 @@ namespace BlazorApp1.Server.Controllers
             userService = UserService;
         }
 
-        [HttpGet("GetUsers")]
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        public async Task<ServiceResponse<UserLoginResponseDTO>> Login(UserLoginRequestDTO UserRequest)
+        {
+            return new ServiceResponse<UserLoginResponseDTO>()
+            {
+                Value = await userService.Login(UserRequest.Email, UserRequest.Password)
+            };
+        }
+
+        [HttpGet("Users")]
         public async Task<ServiceResponse<List<UserDTO>>> GetUsers()
         {
             return new ServiceResponse<List<UserDTO>>()
             {
                 Value = await userService.GetUsers()
         };
+        }
+
+
+
+        [HttpPost("Create")]
+        public async Task<ServiceResponse<UserDTO>> CreateUser([FromBody] UserDTO User)
+        {
+            return new ServiceResponse<UserDTO>()
+            {
+                Value = await userService.CreateUser(User)
+            };
+        }
+
+        [HttpPost("Update")]
+        public async Task<ServiceResponse<UserDTO>> UpdateUser([FromBody] UserDTO User)
+        {
+            return new ServiceResponse<UserDTO>()
+            {
+                Value = await userService.UpdateUser(User)
+            };
+        }
+
+        [HttpGet("UserById/{Id}")]
+        public async Task<ServiceResponse<UserDTO>> GetUserById(int Id)
+        {
+            return new ServiceResponse<UserDTO>()
+            {
+                Value = await userService.GetUserById(Id)
+            };
+        }
+
+
+        [HttpPost("Delete")]
+        public async Task<ServiceResponse<bool>> DeleteUser([FromBody] int id)
+        {
+            return new ServiceResponse<bool>()
+            {
+                Value = await userService.DeleteUserById(id)
+            };
         }
 
     }
