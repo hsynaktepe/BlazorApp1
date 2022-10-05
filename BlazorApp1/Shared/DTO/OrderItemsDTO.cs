@@ -8,10 +8,10 @@ namespace BlazorApp1.Shared.DTO
 {
     public class OrderItemsDTO
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime CreateDate { get; set; }
-        public Guid CreatedUserId { get; set; }
-        public Guid OrderId { get; set; }
+        public int CreatedUserId { get; set; }
+        public int OrderId { get; set; }
         public String Description { get; set; }
         public String CreatedUserFullName { get; set; }
         public String OrderName { get; set; }

@@ -10,11 +10,11 @@ namespace BlazorApp1.Server.Data.Models
     public class Suppliers
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime CreateDate { get; set; }
         [MaxLength(50)]
-        public String Name { get; set; }
-        public String WebURL { get; set; }
+        public String Name { get; set; } = String.Empty;
+        public String WebURL { get; set; } = String.Empty;
         public bool IsActive { get; set; }
 
         public virtual ICollection<Orders> Orders { get; set; }

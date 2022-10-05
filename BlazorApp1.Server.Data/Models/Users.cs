@@ -10,15 +10,15 @@ namespace BlazorApp1.Server.Data.Models
     public class Users
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime CreateDate { get; set; }
         [MaxLength(50)]
-        public String FirstName { get; set; }
+        public String FirstName { get; set; } = String.Empty;
         [MaxLength(50)]
-        public String LastName { get; set; }
+        public String LastName { get; set; } = String.Empty;
         [MaxLength(50)]
-        public String EmailAdress { get; set; }
-        public String Password { get; set; }
+        public String EmailAdress { get; set; } = String.Empty;
+        public String Password { get; set; } = String.Empty;
         public bool IsActive { get; set; } 
 
         public virtual ICollection<Orders> Orders { get; set; }

@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using BlazorApp1.Server.Data.Models;
 using BlazorApp1.Shared.DTO;
-using MealOrdering.Server.Data.Models;
-using MealOrdering.Shared.DTO;
-using MealOrdering.Shared.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -36,7 +33,8 @@ namespace BlazorApp1.Server.Services.Extensions
             CreateMap<Suppliers, SupplierDTO>()
                 .ReverseMap();
 
-            CreateMap<Users, UserDTO>();
+            CreateMap<Users, UserDTO>()
+                .ReverseMap();
 
             //CreateMap<UserDTO, Users>()
             //    .ForMember(x => x.Password, y => y.MapFrom(z => PasswordEncrypter.Encrypt(z.Password)))

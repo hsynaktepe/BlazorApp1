@@ -9,7 +9,7 @@ namespace BlazorApp1.Shared.DTO
 {
     public class UserDTO
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime CreateDate { get; set; }
         [MaxLength(50)]
         public String FirstName { get; set; }
