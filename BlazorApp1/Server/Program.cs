@@ -2,6 +2,7 @@ using BlazorApp1.Client.Utils;
 using BlazorApp1.Server.Data.Context;
 using BlazorApp1.Server.Services.Infrastructure;
 using BlazorApp1.Server.Services.Services;
+using Blazored.LocalStorage;
 using Blazored.Modal;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -61,6 +62,8 @@ builder.Services.AddAuthentication(opts =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSecurityKey"]))
     };
 });
+
+builder.Services.AddBlazoredLocalStorage();
 
 var app = builder.Build();
 
