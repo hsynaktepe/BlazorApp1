@@ -9,7 +9,7 @@ namespace BlazorApp1.Server.Services.Infrastructure
         public Task<UserDTO> CreateUser(UserDTO User);
         public Task<UserDTO> UpdateUser(UserDTO User);
         public Task<bool> DeleteUserById(int id);
-
+        public Task<UserLoginResponseDTO> Login(string Email, string Password);
 
     }
 }
