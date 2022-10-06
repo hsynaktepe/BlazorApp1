@@ -19,12 +19,13 @@ namespace BlazorApp1.Server.Controllers
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<ServiceResponse<UserLoginResponseDTO>> Login(UserLoginRequestDTO UserRequest)
+        public async Task<ServiceResponse<UserLoginResponseDTO>> Login(string Email, string Password)
         {
             return new ServiceResponse<UserLoginResponseDTO>()
             {
-                Value = await userService.Login(UserRequest.Email, UserRequest.Password)
+                Value = await userService.Login(Email, Password)
             };
+
         }
 
         [HttpGet("Users")]

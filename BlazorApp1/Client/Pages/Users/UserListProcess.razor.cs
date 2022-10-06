@@ -21,7 +21,7 @@ namespace BlazorApp1.Client.Pages.Users
 
         protected async Task LoadList()
         {
-            var serviceResponse = await Client.GetFromJsonAsync<ServiceResponse<List<UserDTO>>>("api/User/GetUsers");
+            var serviceResponse = await Client.GetFromJsonAsync<ServiceResponse<List<UserDTO>>>("api/User/Users");
 
             if (serviceResponse.Success)
                 userList = serviceResponse.Value;
