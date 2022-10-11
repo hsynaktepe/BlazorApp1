@@ -7,11 +7,13 @@ namespace BlazorApp1.Client.Utils
     public class AuthStateProvider : AuthenticationStateProvider
     {
         private readonly ILocalStorageService localStorageService;
+        private readonly HttpClient client;
         private readonly AuthenticationState anonymous;
 
-        public AuthStateProvider(ILocalStorageService LocalStorageService)
+        public AuthStateProvider(ILocalStorageService LocalStorageService, HttpClient Client)
         {
             localStorageService = LocalStorageService;
+            client = Client;
             anonymous = new AuthenticationState(new System.Security.Claims.ClaimsPrincipal(new ClaimsIdentity()));
         }
 
@@ -25,6 +27,7 @@ namespace BlazorApp1.Client.Utils
             String email = await localStorageService.GetItemAsStringAsync("email");
 
             var cp = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, email) }, "jwtAuthType"));
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiToken);
 
             return new AuthenticationState(cp);
         }
