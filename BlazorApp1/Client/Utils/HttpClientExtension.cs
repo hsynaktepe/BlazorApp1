@@ -39,7 +39,8 @@ namespace BlazorApp1.Client.Utils
 
         public async static Task<T> GetServiceResponseAsync<T>(this HttpClient Client, String Url, bool ThrowSuccessException = false)
         {
-            throw new ApiException("An error occured ");
+            //for test error popup
+            //throw new ApiException("An error occured ");
 
             var httpRes = await Client.GetFromJsonAsync<ServiceResponse<T>>(Url);
 

@@ -1,16 +1,9 @@
 ﻿using BlazorApp1.Client.Utils;
 using BlazorApp1.Shared.CustomExceptions;
 using BlazorApp1.Shared.DTO;
-using BlazorApp1.Shared.ResponseModels;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
 
-namespace BlazorApp1.Client.Pages.Users
+namespace BlazorApp1.Client.Pages.PageProcess
 {
     public class UserListProcess : ComponentBase
     {
@@ -23,7 +16,8 @@ namespace BlazorApp1.Client.Pages.Users
         [Inject]
         NavigationManager NavigationManager { get; set; }
 
-        protected List<UserDTO> UserList = new List<UserDTO>();
+
+        public List<UserDTO> UserList = new List<UserDTO>();
 
 
         protected async override Task OnInitializedAsync()
@@ -37,12 +31,14 @@ namespace BlazorApp1.Client.Pages.Users
             NavigationManager.NavigateTo("/users/add");
         }
 
-        protected void goUpdateUserPage(Guid UserId)
+        protected void goUpdateUserPage(int UserId)
         {
             NavigationManager.NavigateTo("/users/edit/" + UserId);
         }
 
-        protected async Task DeleteUser(Guid Id)
+
+
+        protected async Task DeleteUser(int Id)
         {
             bool confirmed = await ModalManager.ConfirmationAsync("Confirmation", "User will be deleted. Are you sure?");
 
@@ -50,7 +46,7 @@ namespace BlazorApp1.Client.Pages.Users
 
             try
             {
-                bool deleted = await Client.PostGetServiceResponseAsync<bool, Guid>("api/User/Delete", Id, true);
+                bool deleted = await Client.PostGetServiceResponseAsync<bool, int>("api/User/Delete", Id, true);
 
                 await LoadList();
             }
