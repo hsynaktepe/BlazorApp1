@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using BlazorApp1.Server.Data.Context;
 using BlazorApp1.Server.Services.Infrastructure;
 using BlazorApp1.Shared.DTO;
+using BlazorApp1.Shared.FilterModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorApp1.Server.Services.Services
@@ -24,27 +25,28 @@ namespace BlazorApp1.Server.Services.Services
 
         #region Get
 
-        //public async Task<List<OrderDTO>> GetOrdersByFilter(OrderListFilterModel Filter)
-        //{
-        //    var query = context.Orders.Include(i => i.Supplier).AsQueryable();
+        public async Task<List<OrderDTO>> GetOrdersByFilter(OrderListFilterModel Filter)
+        {
+            var query = context.Orders.Include(i => i.Supplier).AsQueryable();
 
-        //    if (Filter.CreatedUserId != Guid.Empty)
-        //        query = query.Where(i => i.CreatedUserId == Filter.CreatedUserId);
+            //değişikliğe gidilebilri
+            if (Filter.CreatedUserId != 0)
+                query = query.Where(i => i.CreatedUserId == Filter.CreatedUserId);
 
-        //    if (Filter.CreateDateFirst.HasValue)
-        //        query = query.Where(i => i.CreateDate >= Filter.CreateDateFirst);
+            if (Filter.CreateDateFirst.HasValue)
+                query = query.Where(i => i.CreateDate >= Filter.CreateDateFirst);
 
-        //    if (Filter.CreateDateLast > DateTime.MinValue)
-        //        query = query.Where(i => i.CreateDate <= Filter.CreateDateLast);
+            if (Filter.CreateDateLast > DateTime.MinValue)
+                query = query.Where(i => i.CreateDate <= Filter.CreateDateLast);
 
 
-        //    var list = await query
-        //              .ProjectTo<OrderDTO>(mapper.ConfigurationProvider)
-        //              .OrderBy(i => i.CreateDate)
-        //              .ToListAsync();
+            var list = await query
+                      .ProjectTo<OrderDTO>(mapper.ConfigurationProvider)
+                      .OrderBy(i => i.CreateDate)
+                      .ToListAsync();
 
-        //    return list;
-        //}
+            return list;
+        }
 
 
         public async Task<List<OrderDTO>> GetOrders(DateTime OrderDate)

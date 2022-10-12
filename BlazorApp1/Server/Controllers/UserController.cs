@@ -8,6 +8,7 @@ namespace BlazorApp1.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
        private readonly  IUserService userService;
@@ -19,11 +20,11 @@ namespace BlazorApp1.Server.Controllers
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<ServiceResponse<UserLoginResponseDTO>> Login(string Email, string Password)
+        public async Task<ServiceResponse<UserLoginResponseDTO>> Login(UserLoginRequestDTO UserRequest)
         {
             return new ServiceResponse<UserLoginResponseDTO>()
             {
-                Value = await userService.Login(Email, Password)
+                Value = await userService.Login(UserRequest.Email, UserRequest.Password)
             };
 
         }

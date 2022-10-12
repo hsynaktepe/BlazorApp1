@@ -1,4 +1,5 @@
 ﻿using BlazorApp1.Shared.DTO;
+using BlazorApp1.Shared.FilterModels;
 
 namespace BlazorApp1.Server.Services.Infrastructure
 {
@@ -12,7 +13,7 @@ namespace BlazorApp1.Server.Services.Infrastructure
 
         public Task<List<OrderDTO>> GetOrders(DateTime OrderDate);
 
-        //public Task<List<OrderDTO>> GetOrdersByFilter(OrderListFilterModel Filter);
+        public Task<List<OrderDTO>> GetOrdersByFilter(OrderListFilterModel Filter);
 
         public Task<OrderDTO> GetOrderById(int Id);
 

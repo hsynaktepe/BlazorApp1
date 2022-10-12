@@ -72,6 +72,7 @@ namespace BlazorApp1.Server.Services.Services
                 throw new Exception("Kullanıcı zaten mevcut!");
 
             dbUser = mapper.Map<Users>(User);
+            dbUser.CreateDate = DateTime.Now;
 
             await context.Users.AddAsync(dbUser);
             int result = await context.SaveChangesAsync();
